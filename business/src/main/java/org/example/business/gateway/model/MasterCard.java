@@ -1,10 +1,10 @@
 package org.example.business.gateway.model;
 
-public class CartaMaestra {
+public class MasterCard {
     private String id;
-    private Integer poder;
+    private Integer power;
     private String url;
-    private String nombre;
+    private String cardName;
 
     public String getId() {
         return id;
@@ -14,12 +14,12 @@ public class CartaMaestra {
         this.id = id;
     }
 
-    public Integer getPoder() {
-        return poder;
+    public Integer getPower() {
+        return power;
     }
 
-    public void setPoder(Integer poder) {
-        this.poder = poder;
+    public void setPower(Integer power) {
+        this.power = power;
     }
 
     public String getUrl() {
@@ -30,11 +30,11 @@ public class CartaMaestra {
         this.url = url;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCardName() {
+        return cardName;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 }

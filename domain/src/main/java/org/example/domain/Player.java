@@ -1,14 +1,14 @@
 package org.example.domain;
 
 import co.com.sofka.domain.generic.Entity;
-import org.example.domain.values.JugadorId;
+import org.example.domain.values.PlayerId;
 
-public class Jugador extends Entity<JugadorId> {
+public class Player extends Entity<PlayerId> {
     private final String alias;
 
-    public Jugador(JugadorId id, String alias) {
+    public Player(PlayerId id, String nickName) {
         super(id);
-        this.alias = alias;
+        this.alias = nickName;
     }
 
 

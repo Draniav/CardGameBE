@@ -1,0 +1,12 @@
+../.idea/
+.idea/
+marvelgame.iml
+/domain/domain.iml
+/business/business.iml
+/application/application.iml
+/domain/target/
+/application/target/
+/business/target/
+/application/app-proxy/target/
+/application/app-service/target/
+.idea/libraries/

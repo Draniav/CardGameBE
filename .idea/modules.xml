@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/application/app-proxy/app-proxy.iml" filepath="$PROJECT_DIR$/application/app-proxy/app-proxy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/application/app-service/app-service.iml" filepath="$PROJECT_DIR$/application/app-service/app-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/business/business.iml" filepath="$PROJECT_DIR$/business/business.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/cardGameB.E.iml" filepath="$PROJECT_DIR$/.idea/cardGameB.E.iml" />
-      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/application/application.iml" filepath="$PROJECT_DIR$/application/application.iml" />
     </modules>
   </component>
 </project>

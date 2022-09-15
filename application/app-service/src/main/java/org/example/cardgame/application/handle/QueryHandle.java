@@ -1,5 +1,6 @@
 package org.example.cardgame.application.handle;
 
+
 import org.example.cardgame.application.handle.model.JuegoListViewModel;
 import org.example.cardgame.application.handle.model.MazoViewModel;
 import org.example.cardgame.application.handle.model.TableroViewModel;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
 public class QueryHandle {
@@ -49,15 +51,15 @@ public class QueryHandle {
         );
     }
 
+
     @Bean
-    public RouterFunction<ServerResponse> mazoPorJugador() {
-        return RouterFunctions.route(
-                GET("/jugador/mazo/{uid}"),
-                request -> template.find(filterByUId(request.pathVariable("uid")), MazoViewModel.class, "mazoview")
-                        .collectList()
-                        .flatMap(list -> ServerResponse.ok()
+    public RouterFunction<ServerResponse> getMazo() {
+        return route(
+                GET("/jugador/mazo/{uid}/{juegoId}"),
+                request -> template.findOne(filterByUidAndId(request.pathVariable("uid"), request.pathVariable("juegoId")), MazoViewModel.class, "mazoview")
+                        .flatMap(element -> ServerResponse.ok()
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .body(BodyInserters.fromPublisher(Flux.fromIterable(list), MazoViewModel.class)))
+                                .body(BodyInserters.fromPublisher(Mono.just(element), MazoViewModel.class)))
         );
     }
 
@@ -72,5 +74,12 @@ public class QueryHandle {
                 Criteria.where("jugadores." + uid + ".jugadorId").is(uid)
         );
     }
+
+    private Query filterByUidAndId(String uid, String juegoId) {
+        return new Query(
+                Criteria.where("juegoId").is(juegoId).and("uid").is(uid)
+        );
+    }
+
 
 }

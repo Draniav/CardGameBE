@@ -2,6 +2,7 @@ package org.example.cardgame.application.handle;
 
 
 
+import org.example.cardgame.application.handle.model.MazoViewModel;
 import org.example.cardgame.command.CrearJuegoCommand;
 import org.example.cardgame.command.IniciarJuegoCommand;
 import org.example.cardgame.command.IniciarRondaCommand;
@@ -13,14 +14,15 @@ import org.example.cardgame.usecase.PonerCartaEnTableroUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.util.function.Function;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration

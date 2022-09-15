@@ -27,41 +27,41 @@ class CrearJuegoUseCaseTest {
     private ListaDeCartaService listaDeCartaService;
 
     @InjectMocks
-    private CrearJuegoUseCase useCase;
+    private CrearJuegoUseCase useaCase;
 
     @Test
-    void crearJuego() {
+    void crearJuego(){
 
         //arrange
         var command = new CrearJuegoCommand();
-        command.setJuegoId("J-01");
+        command.setJuegoId("IdJuego01");
         command.setJugadores(new HashMap<>());
-        command.getJugadores().put("jugador-01", "Andres");
-        command.getJugadores().put("jugador-02", "Martin");
+        command.getJugadores().put("jugador01","Juanes");
+        command.getJugadores().put("jugador02","Madona");
         command.setJugadorPrincipalId("Id01");
 
         when(listaDeCartaService.obtenerCartasDeMarvel()).thenReturn(history());
 
-        StepVerifier.create(useCase.apply(Mono.just(command)))
+        StepVerifier.create(useaCase.apply(Mono.just(command)))
 
                 .expectNextMatches(new Predicate<DomainEvent>() {
                     @Override
                     public boolean test(DomainEvent domainEvent) {
                         var event = (JuegoCreado) domainEvent;
-                        return "J-01".equals(event.aggregateRootId()) && "Id01".equals(event.getJugadorPrincipal().value());
+                        return "IdJuego01".equals(event.aggregateRootId()) && "Id01".equals(event.getJugadorPrincipal().value());
                     }
                 })
 
                 .expectNextMatches(domainEvent -> {
                     var event = (JugadorAgregado) domainEvent;
                     assert event.getMazo().value().cantidad().equals(2);
-                    return event.getJuegoId().value().equals("jugador-01") && event.getAlias().equals("Andres");
+                    return event.getJuegoId().value().equals("jugador01") && event.getAlias().equals("Juanes");
                 })
 
                 .expectNextMatches(domainEvent -> {
                     var event = (JugadorAgregado) domainEvent;
                     assert event.getMazo().value().cantidad().equals(2);
-                    return event.getJuegoId().value().equals("jugador-02") && event.getAlias().equals("Martin");
+                    return event.getJuegoId().value().equals("jugador02") && event.getAlias().equals("Madona");
                 })
                 .expectComplete()
                 .verify();
@@ -69,20 +69,21 @@ class CrearJuegoUseCaseTest {
 
     private Flux<CartaMaestra> history() {
 
-        return Flux.just(
+        return  Flux.just(
 
-                new CartaMaestra("1", "CartaID1"),
-                new CartaMaestra("2", "CartaID2"),
-                new CartaMaestra("3", "CartaID3"),
-                new CartaMaestra("10", "CartaID10"),
-                new CartaMaestra("11", "CartaID11"),
-                new CartaMaestra("12", "CartaID12"),
-                new CartaMaestra("4", "CartaID4"),
-                new CartaMaestra("5", "CartaID5"),
-                new CartaMaestra("6", "CartaID6"),
-                new CartaMaestra("7", "CartaID7"),
-                new CartaMaestra("8", "CartaID8"),
-                new CartaMaestra("9", "CartaID9")
+                /**
+                 * Mazo d ecartas jugador 1 Juanes
+                 */
+                new CartaMaestra("1","tarjeta1"),
+                new CartaMaestra("2","tarjeta2"),
+                new CartaMaestra("3","tarjeta3"),
+
+                /**
+                 * Mazo de cartas jugador 2 Madona
+                 */
+                new CartaMaestra("4","tarjeta4"),
+                new CartaMaestra("5","tarjeta5"),
+                new CartaMaestra("6","tarjeta6")
 
         );
     }

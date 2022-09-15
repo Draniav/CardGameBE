@@ -1,6 +1,5 @@
 package org.example.cardgame.application.handle;
 
-
 import org.example.cardgame.application.handle.model.JuegoListViewModel;
 import org.example.cardgame.application.handle.model.MazoViewModel;
 import org.example.cardgame.application.handle.model.TableroViewModel;
@@ -18,7 +17,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
-import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
 public class QueryHandle {
@@ -51,11 +49,22 @@ public class QueryHandle {
         );
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> mazoPorJugador() {
+        return RouterFunctions.route(
+                GET("/jugador/mazo/{uid}"),
+                request -> template.find(filterByUId(request.pathVariable("uid")), MazoViewModel.class, "mazoview")
+                        .collectList()
+                        .flatMap(list -> ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(BodyInserters.fromPublisher(Flux.fromIterable(list), MazoViewModel.class)))
+        );
+    }
 
     @Bean
     public RouterFunction<ServerResponse> getMazo() {
-        return route(
-                GET("/jugador/mazo/{uid}/{juegoId}"),
+        return RouterFunctions.route(
+                GET("/juego/mazo/{uid}/{juegoId}"),
                 request -> template.findOne(filterByUidAndId(request.pathVariable("uid"), request.pathVariable("juegoId")), MazoViewModel.class, "mazoview")
                         .flatMap(element -> ServerResponse.ok()
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -80,6 +89,5 @@ public class QueryHandle {
                 Criteria.where("juegoId").is(juegoId).and("uid").is(uid)
         );
     }
-
 
 }

@@ -71,7 +71,8 @@ public class QueryHandle {
     public RouterFunction<ServerResponse> getMazo() {
         return route(
                 GET("/juego/mazo/{uid}/{juegoId}"),
-                request -> template.findOne(filterByUidAndId(request.pathVariable("uid"), request.pathVariable("juegoId")), MazoViewModel.class, "mazoview")
+                request -> template.findOne(filterByUidAndId(request.pathVariable("uid"),
+                                request.pathVariable("juegoId")), MazoViewModel.class, "mazoview")
                         .flatMap(element -> ServerResponse.ok()
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .body(BodyInserters.fromPublisher(Mono.just(element), MazoViewModel.class)))
@@ -82,6 +83,11 @@ public class QueryHandle {
         return new Query(
                 Criteria.where("jugadores." + uid + ".jugadorId").is(uid));
     }
+    // private Query filterByUId(String uid) {
+    //   return new Query(
+    //         Criteria.where("uid").is(uid)
+    //);
+    //  }
 
     private Query filterById(String juegoId) {
         return new Query(

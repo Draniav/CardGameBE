@@ -39,6 +39,7 @@ public class CommandHandle {
 	}
 
 
+	
 	@Bean
 	public RouterFunction<ServerResponse> iniciar(IniciarJuegoUseCase usecase) {
 		return route(
@@ -50,8 +51,9 @@ public class CommandHandle {
 
 		);
 	}
+	
 
-	@Bean
+		@Bean
 	public RouterFunction<ServerResponse> iniciarRonda(IniciarRondaUseCase usecase) {
 		return route(
 			 POST("/juego/ronda/iniciar").and(accept(MediaType.APPLICATION_JSON)),

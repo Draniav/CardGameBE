@@ -83,11 +83,7 @@ public class QueryHandle {
         return new Query(
                 Criteria.where("jugadores." + uid + ".jugadorId").is(uid));
     }
-    // private Query filterByUId(String uid) {
-    //   return new Query(
-    //         Criteria.where("uid").is(uid)
-    //);
-    //  }
+
 
     private Query filterById(String juegoId) {
         return new Query(
